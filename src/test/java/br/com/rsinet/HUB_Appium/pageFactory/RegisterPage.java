@@ -63,6 +63,11 @@ public class RegisterPage {
 
 	@FindBy(how = How.ID, using = "com.Advantage.aShopping:id/buttonRegister")
 	private WebElement btnRegistrar;
+	
+	@FindBy(how = How.XPATH, using = "//android.view.ViewGroup[@content-desc=\"Home Page\"]/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.LinearLayout[4]/android.widget.RelativeLayout/android.widget.TextView")
+	private WebElement txtPassword;
+	
+	
 
 	@SuppressWarnings("rawtypes")
 	public RegisterPage(AndroidDriver<WebElement> driver) {
@@ -178,5 +183,13 @@ public class RegisterPage {
 		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "Usuarios");
 		Random rnd = new Random();
 		return ExcelUtils.getCellData(rnd.nextInt(ExcelUtils.getRowNum()), 0);
+	}
+
+	public boolean confirmandoSeAsSenhasEstaoErradas(String texto) {
+		scroll(1056,326,1062,1494);
+		System.out.println(txtPassword.getText());
+		if(txtPassword.getText().equals(texto))
+			return true;
+		return false;
 	}
 }

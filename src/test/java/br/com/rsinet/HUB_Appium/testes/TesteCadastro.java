@@ -1,6 +1,7 @@
 package br.com.rsinet.HUB_Appium.testes;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +32,6 @@ public class TesteCadastro {
 		registerPage = pageObject.getRegisterPage();
 	}
 
-	@Test
 	public void deveCadastrarUmUsuarioComSucesso() throws Exception {
 
 		homePage.clickMenu();
@@ -83,6 +83,8 @@ public class TesteCadastro {
 		registerPage.clicarCheckReceberMensagens();
 		registerPage.clicarBtnRegistrar();
 		
+		
+		assertTrue(registerPage.confirmandoSeAsSenhasEstaoErradas("Passwords do not match"));
 	}
 
 	@After
