@@ -33,7 +33,6 @@ public class TesteCadastro {
 		registerPage = pageObject.getRegisterPage();
 	}
 	
-	@Test
 	public void deveCadastrarUmUsuarioComSucesso() throws Exception {
 		homePage.clickMenu();
 		homePage.clickLogin();

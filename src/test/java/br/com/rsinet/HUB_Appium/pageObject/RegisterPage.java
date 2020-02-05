@@ -126,9 +126,9 @@ public class RegisterPage {
 	}
 
 	public boolean confirmandoSeAsSenhasEstaoErradas(String texto) {
-		element = driver.findElement(By.xpath("//android.view.ViewGroup[@content-desc=\\\"Home Page\\\"]/android.widget.LinearLayout[2]/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[1]/android.widget.LinearLayout/android.widget.LinearLayout[4]/android.widget.RelativeLayout/android.widget.TextView"));
-		acoes.scroll(1056,326,1062,1494);
-		if(element.getText().equals(texto))
+		
+		if(driver.findElementByAndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\""
+						+ texto + "\").instance(0))").isDisplayed())
 			return true;
 		return false;
 	}

@@ -17,13 +17,13 @@ import br.com.rsinet.HUB_Appium.pageObject.HomePage;
 import br.com.rsinet.HUB_Appium.pageObject.SearchPage;
 import io.appium.java_client.android.AndroidDriver;
 
-public class TestePesquisaHome {
-	
+public class TesteBuscaPelaLupa {
 	private WebDriverManager manager;
 	private AndroidDriver<WebElement> driver;
 	private PageObjectManager pageObject;
 	private HomePage homePage;
 	private SearchPage searchPage;
+
 	@Before
 	public void inicio() throws MalformedURLException {
 		manager = new WebDriverManager();
@@ -32,30 +32,24 @@ public class TestePesquisaHome {
 		homePage = pageObject.getHomePage();
 		searchPage = pageObject.getSearchPage();
 	}
-	
+
 	@Test
-	public void deveProcurarUmProdutoPelaHome() throws Exception {
-		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "buscarHomeSucesso");
-		homePage.clickProdutosHome(ExcelUtils.getCellData(1, 0));
-		searchPage.clicandoNoProduto(ExcelUtils.getCellData(1, 1));
-		assertTrue(driver.getPageSource().contains(ExcelUtils.getCellData(1, 1).toUpperCase()));
+	public void deveEncontrarUmProdutoPelaBusca() throws Exception {
+		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "BuscaLupaSucesso");
+		homePage.pesquisarProdutoLupa(ExcelUtils.getCellData(1, 0));
+		searchPage.clicandoNoProduto(ExcelUtils.getCellData(1, 0));
+		assertTrue(driver.getPageSource().contains(ExcelUtils.getCellData(1, 0).toUpperCase()));
 	}
-	
+
 	@Test
-	public void naoDeveEncontrarProdutoComValorBaixo() throws Exception {
-		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "buscarHomeFalha");
-		homePage.clickProdutosHome(ExcelUtils.getCellData(1, 0));
-		searchPage.clicandoNoFiltro();
-		searchPage.clicandoNoPreco();
-		searchPage.clicandoParaDiminuirPreco(1031, 441, 43, 435);
-		searchPage.clicandoEmAplicarFiltro();
-		
-		assertTrue(driver.getPageSource().contains("- No results -"));
+	public void naoDeveEncontrarUmProdutoPelaBusca() throws Exception {
+		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "BuscaLupaFalha");
+		homePage.pesquisarProdutoLupa(ExcelUtils.getCellData(1, 0));
+		assertTrue(driver.getPageSource().contains("- No results for \""+ ExcelUtils.getCellData(1, 0)+"\" -"));
 	}
-	
+
 	@After
 	public void finaliza() {
 		manager.closeDriver();
 	}
-	
 }

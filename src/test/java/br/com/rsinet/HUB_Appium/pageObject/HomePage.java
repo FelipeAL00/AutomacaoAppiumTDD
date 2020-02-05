@@ -64,4 +64,15 @@ public class HomePage {
 						+ texto + "\").instance(0))")
 				.click();
 	}
+	
+	public void pesquisarProdutoLupa(String texto) {
+		element = driver.findElement(By.id("com.Advantage.aShopping:id/editTextSearch"));
+		wait.until(ExpectedConditions.visibilityOf(element));
+		element.click();
+		element.sendKeys(texto);
+		
+		element2 = driver.findElement(By.id("com.Advantage.aShopping:id/imageViewSearch"));
+		element2.click();
+		
+	}
 }
