@@ -2,10 +2,10 @@ package br.com.rsinet.HUB_Appium.managers;
 
 import org.openqa.selenium.WebElement;
 
-import br.com.rsinet.HUB_Appium.pageFactory.HomePage;
-import br.com.rsinet.HUB_Appium.pageFactory.ProductPage;
-import br.com.rsinet.HUB_Appium.pageFactory.RegisterPage;
-import br.com.rsinet.HUB_Appium.pageFactory.SearchPage;
+import br.com.rsinet.HUB_Appium.pageObject.HomePage;
+import br.com.rsinet.HUB_Appium.pageObject.ProductPage;
+import br.com.rsinet.HUB_Appium.pageObject.RegisterPage;
+import br.com.rsinet.HUB_Appium.pageObject.SearchPage;
 import io.appium.java_client.android.AndroidDriver;
 
 public class PageObjectManager {

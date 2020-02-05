@@ -12,8 +12,9 @@ import br.com.rsinet.HUB_Appium.excelConection.ExcelUtils;
 import br.com.rsinet.HUB_Appium.managers.FileReaderManager;
 import br.com.rsinet.HUB_Appium.managers.PageObjectManager;
 import br.com.rsinet.HUB_Appium.managers.WebDriverManager;
-import br.com.rsinet.HUB_Appium.pageFactory.HomePage;
-import br.com.rsinet.HUB_Appium.pageFactory.RegisterPage;
+import br.com.rsinet.HUB_Appium.pageObject.HomePage;
+import br.com.rsinet.HUB_Appium.pageObject.RegisterPage;
+import br.com.rsinet.HUB_Appium.util.RandomicoParaNome;
 import io.appium.java_client.android.AndroidDriver;
 
 public class TesteCadastro {
@@ -31,13 +32,13 @@ public class TesteCadastro {
 		homePage = pageObject.getHomePage();
 		registerPage = pageObject.getRegisterPage();
 	}
-
+	
+	@Test
 	public void deveCadastrarUmUsuarioComSucesso() throws Exception {
-
 		homePage.clickMenu();
 		homePage.clickLogin();
 		homePage.clickCriarConta();
-		String name = registerPage.buscarNomeRandom();
+		String name = RandomicoParaNome.buscarNomeRandom();
 		
 		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "CadastroSucesso");
 		registerPage.passarNome(name);
@@ -66,7 +67,7 @@ public class TesteCadastro {
 		homePage.clickLogin();
 		homePage.clickCriarConta();
 
-		registerPage.passarNome(registerPage.buscarNomeRandom());
+		registerPage.passarNome(RandomicoParaNome.buscarNomeRandom());
 		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "CadastroFalha");
 		registerPage.passarEmail(ExcelUtils.getCellData(1, 0));
 		registerPage.passarSenha(ExcelUtils.getCellData(1, 1));
@@ -89,6 +90,6 @@ public class TesteCadastro {
 
 	@After
 	public void fecha() {
-		driver.quit();
+		manager.closeDriver();
 	}
 }

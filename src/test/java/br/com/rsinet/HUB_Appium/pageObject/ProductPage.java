@@ -1,4 +1,4 @@
-package br.com.rsinet.HUB_Appium.pageFactory;
+package br.com.rsinet.HUB_Appium.pageObject;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
