@@ -40,6 +40,7 @@ public class TesteCadastro {
 		String name = RandomicoParaNome.buscarNomeRandom();
 		
 		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "CadastroSucesso");
+		
 		registerPage.passarNome(name);
 		registerPage.passarEmail(ExcelUtils.getCellData(1, 0));
 		registerPage.passarSenha(ExcelUtils.getCellData(1, 1));
@@ -67,6 +68,7 @@ public class TesteCadastro {
 		homePage.clickCriarConta();
 
 		registerPage.passarNome(RandomicoParaNome.buscarNomeRandom());
+		
 		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "CadastroFalha");
 		registerPage.passarEmail(ExcelUtils.getCellData(1, 0));
 		registerPage.passarSenha(ExcelUtils.getCellData(1, 1));
@@ -82,7 +84,6 @@ public class TesteCadastro {
 
 		registerPage.clicarCheckReceberMensagens();
 		registerPage.clicarBtnRegistrar();
-		
 		
 		assertTrue(registerPage.confirmandoSeAsSenhasEstaoErradas("Passwords do not match"));
 	}
