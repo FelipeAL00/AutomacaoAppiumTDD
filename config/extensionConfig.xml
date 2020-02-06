@@ -4,7 +4,7 @@
 		<theme>standard</theme>
 		<enconding>UTF-8</enconding>
 		<protocol>https</protocol>
-		<documentTitle>Teste Advantage Shopping - BDD</documentTitle>
+		<documentTitle>Teste Advantage Shopping - TDD</documentTitle>
 		<reportName>Teste Advantage Shopping</reportName>
 		<dateFormat>yyyy-MM-dd</dateFormat>
 		<timeFormat>HH:mm:ss</timeFormat>
