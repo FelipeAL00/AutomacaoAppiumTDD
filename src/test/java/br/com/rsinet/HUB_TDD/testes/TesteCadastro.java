@@ -3,9 +3,13 @@ package br.com.rsinet.HUB_TDD.testes;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.aventstack.extentreports.ExtentTest;
 
 import br.com.rsinet.HUB_TDD.excelConection.ExcelUtils;
 import br.com.rsinet.HUB_TDD.managers.FileReaderManager;
@@ -13,7 +17,9 @@ import br.com.rsinet.HUB_TDD.managers.PageObjectManager;
 import br.com.rsinet.HUB_TDD.managers.WebDriverManager;
 import br.com.rsinet.HUB_TDD.screenObject.HomeScreen;
 import br.com.rsinet.HUB_TDD.screenObject.RegisterScreen;
+import br.com.rsinet.HUB_TDD.util.DataHoraDiaGenerator;
 import br.com.rsinet.HUB_TDD.util.RandomicoParaNome;
+import br.com.rsinet.HUB_TDD.util.Report;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 
@@ -23,7 +29,7 @@ public class TesteCadastro {
 	private RegisterScreen registerPage;
 	private WebDriverManager manager;
 	private PageObjectManager pageObject;
-
+	private ExtentTest test;
 	@Before
 	public void antes() throws Exception {
 		manager = new WebDriverManager();
@@ -33,7 +39,9 @@ public class TesteCadastro {
 		registerPage = pageObject.getRegisterPage();
 	}
 	
+	@Test
 	public void deveCadastrarUmUsuarioComSucesso() throws Exception {
+		test = Report.createTest("TesteCadastrodeUsuarioComSucesso");
 		homePage.clickMenu();
 		homePage.clickLogin();
 		homePage.clickCriarConta();
@@ -63,6 +71,7 @@ public class TesteCadastro {
 	
 	@Test
 	public void naoDeveCadastrarUsuario() throws Exception {
+		test = Report.createTest("TesteCadastrodeUsuarioComFalha");
 		homePage.clickMenu();
 		homePage.clickLogin();
 		homePage.clickCriarConta();
@@ -89,7 +98,8 @@ public class TesteCadastro {
 	}
 
 	@After
-	public void fecha() {
+	public void fecha() throws IOException {
+		Report.statusReported(test,  "testeCadastro_" + DataHoraDiaGenerator.dataHoraParaArquivo(), driver);
 		manager.closeDriver();
 	}
 }
