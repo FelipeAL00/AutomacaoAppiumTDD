@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 
 import br.com.rsinet.HUB_TDD.excelConection.ExcelUtils;
@@ -30,6 +31,7 @@ public class TestePesquisaHome {
 	private HomeScreen homePage;
 	private SearchScreen searchPage;
 	private ExtentTest test;
+	private ExtentReports extent;
 	@Before
 	public void inicio() throws MalformedURLException {
 		manager = new WebDriverManager();
@@ -37,9 +39,11 @@ public class TestePesquisaHome {
 		pageObject = new PageObjectManager(driver);
 		homePage = pageObject.getHomePage();
 		searchPage = pageObject.getSearchPage();
+		
+		extent = Report.getReport();
 	}
 	
-
+	@Test
 	public void deveProcurarUmProdutoPelaHome() throws Exception {
 		test = Report.createTest("TestePesquisaHomeSucesso");
 		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "buscarHomeSucesso");
@@ -54,8 +58,10 @@ public class TestePesquisaHome {
 		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "buscarHomeFalha");
 		homePage.clickProdutosHome(ExcelUtils.getCellData(1, 0));
 		searchPage.clicandoNoFiltro();
-		searchPage.clicandoNoPreco();
-		searchPage.clicandoParaDiminuirPreco(1031, 441, 43, 435);
+		searchPage.clicandoNoComponenteFiltro(ExcelUtils.getCellData(1, 1));
+		searchPage.clicandoNoComponenteFiltro(ExcelUtils.getCellData(1, 2));
+		searchPage.clicandoNoComponenteFiltro(ExcelUtils.getCellData(2, 1));
+		searchPage.clicandoNoComponenteFiltro(ExcelUtils.getCellData(2, 2));		
 		searchPage.clicandoEmAplicarFiltro();
 		
 		assertTrue(driver.getPageSource().contains("- No results -"));
@@ -65,6 +71,7 @@ public class TestePesquisaHome {
 	public void finaliza() throws IOException {
 		Report.statusReported(test,  "testePesquisaHome_" + DataHoraDiaGenerator.dataHoraParaArquivo(), driver);
 		manager.closeDriver();
+		System.out.println(extent.getStats());
 	}
 	
 }

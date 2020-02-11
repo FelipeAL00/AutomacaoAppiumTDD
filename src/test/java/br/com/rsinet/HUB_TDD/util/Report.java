@@ -15,7 +15,7 @@ public class Report {
 	private static ExtentReports extent;
 	private static ExtentTest test;
 
-	public static ExtentReports setReport() {
+	public static ExtentReports getReport() {
 		if (extent == null) {
 			htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/target/reportRelatorio/relatorio"
 					+ DataHoraDiaGenerator.dataHoraParaArquivo() + ".html");
@@ -49,7 +49,8 @@ public class Report {
 		test.addScreenCaptureFromPath(screenPath);
 	}
 
-	public static void quitExtent(ExtentReports extent) {
-		extent.flush();
+	public static void quitExtent() {
+		if (extent != null)
+			extent.flush();
 	}
 }

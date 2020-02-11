@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 
 import br.com.rsinet.HUB_TDD.excelConection.ExcelUtils;
@@ -29,6 +30,7 @@ public class TesteBuscaPelaLupa {
 	private HomeScreen homePage;
 	private SearchScreen searchPage;
 	private ExtentTest test;
+	private ExtentReports extent;
 
 	@Before
 	public void inicio() throws MalformedURLException {
@@ -37,6 +39,7 @@ public class TesteBuscaPelaLupa {
 		pageObject = new PageObjectManager(driver);
 		homePage = pageObject.getHomePage();
 		searchPage = pageObject.getSearchPage();
+		extent = Report.getReport();
 	}
 
 	@Test
@@ -53,12 +56,13 @@ public class TesteBuscaPelaLupa {
 		test = Report.createTest("TestePesquisaLupaFalha");
 		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "BuscaLupaFalha");
 		homePage.pesquisarProdutoLupa(ExcelUtils.getCellData(1, 0));
-		assertTrue(driver.getPageSource().contains("- No results for \""+ ExcelUtils.getCellData(1, 0)+"\" -"));
+		assertTrue(searchPage.capturarMessage(ExcelUtils.getCellData(1, 0)));
 	}
 
 	@After
 	public void finaliza() throws IOException {
 		Report.statusReported(test,  "testePesquisaLupa_" + DataHoraDiaGenerator.dataHoraParaArquivo(), driver);
 		manager.closeDriver();
+		System.out.println(extent.getStats());
 	}
 }

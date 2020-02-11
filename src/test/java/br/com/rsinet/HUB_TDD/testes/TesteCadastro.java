@@ -9,6 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 
 import br.com.rsinet.HUB_TDD.excelConection.ExcelUtils;
@@ -30,6 +31,7 @@ public class TesteCadastro {
 	private WebDriverManager manager;
 	private PageObjectManager pageObject;
 	private ExtentTest test;
+	private ExtentReports extent;
 	@Before
 	public void antes() throws Exception {
 		manager = new WebDriverManager();
@@ -37,6 +39,7 @@ public class TesteCadastro {
 		pageObject = new PageObjectManager(driver);
 		homePage = pageObject.getHomePage();
 		registerPage = pageObject.getRegisterPage();
+		extent = Report.getReport();
 	}
 	
 	@Test
@@ -45,7 +48,7 @@ public class TesteCadastro {
 		homePage.clickMenu();
 		homePage.clickLogin();
 		homePage.clickCriarConta();
-		String name = RandomicoParaNome.buscarNomeRandom();
+		String name = RandomicoParaNome.buscarNomeRandom() + "F";
 		
 		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "CadastroSucesso");
 		
@@ -101,5 +104,6 @@ public class TesteCadastro {
 	public void fecha() throws IOException {
 		Report.statusReported(test,  "testeCadastro_" + DataHoraDiaGenerator.dataHoraParaArquivo(), driver);
 		manager.closeDriver();
+		System.out.println(extent.getStats());
 	}
 }
