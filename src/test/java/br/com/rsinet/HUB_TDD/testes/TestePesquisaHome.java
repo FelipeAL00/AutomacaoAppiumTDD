@@ -58,10 +58,12 @@ public class TestePesquisaHome {
 		ExcelUtils.setExcelFile(FileReaderManager.getInstance().getConfigReader().getPathExcel(), "buscarHomeFalha");
 		homePage.clickProdutosHome(ExcelUtils.getCellData(1, 0));
 		searchPage.clicandoNoFiltro();
-		searchPage.clicandoNoComponenteFiltro(ExcelUtils.getCellData(1, 1));
-		searchPage.clicandoNoComponenteFiltro(ExcelUtils.getCellData(1, 2));
-		searchPage.clicandoNoComponenteFiltro(ExcelUtils.getCellData(2, 1));
-		searchPage.clicandoNoComponenteFiltro(ExcelUtils.getCellData(2, 2));		
+		
+		for(int i=1; i <= 2; i++) {
+			for(int n=1;n<=2;n++)
+				searchPage.clicandoNoComponenteFiltro(ExcelUtils.getCellData(i, n));
+		}
+		
 		searchPage.clicandoEmAplicarFiltro();
 		
 		assertTrue(driver.getPageSource().contains("- No results -"));
